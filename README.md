@@ -1,6 +1,13 @@
 # my.jest-puppeteer
 Sandbox for working with Jest and Puppeteer
 
+Publishing always include the context list, even when empty:
+
+```
+testspace junit.xml @./screenshots-list.txt
+```
+
+
 ## Setup
 The following steps are required to setup from scratch.
 
