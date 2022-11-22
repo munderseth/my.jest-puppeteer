@@ -1,0 +1,32 @@
+{
+  "name": "my.jest-puppeteer",
+  "version": "1.0.0",
+  "description": "Sandbox for working with Jest and Puppeteer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/munderseth/my.jest-puppeteer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/munderseth/my.jest-puppeteer/issues"
+  },
+  "homepage": "https://github.com/munderseth/my.jest-puppeteer#readme",
+  "devDependencies": {
+    "jest": "^29.3.1",
+    "jest-image-snapshot": "^6.0.0",
+    "jest-junit": "^15.0.0",
+    "jest-puppeteer": "^6.1.1",
+    "puppeteer": "^19.2.2"
+  },
+  "jest-junit": {
+    "suiteNameTemplate": "{filepath}",
+    "classNameTemplate": "{classname}",
+    "titleTemplate": "{title}"
+  }
+}
