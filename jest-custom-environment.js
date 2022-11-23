@@ -2,7 +2,10 @@
 const PuppeteerEnvironment = require('jest-environment-puppeteer');
 
 const fs = require('fs');
-const screenshotsListFile = './screenshots-list.txt';
+const screenshotsDir               = 'screenshots';
+const screenshotsListFile          = './screenshots-list.txt';
+const imageSnapshotsDir            = '__image_snapshots__';
+const imageSnapshotsDiffOutputDir  = imageSnapshotsDir+'/__diff_output__';
 
 class CustomEnvironment extends PuppeteerEnvironment {
 
@@ -21,12 +24,21 @@ class CustomEnvironment extends PuppeteerEnvironment {
         };
 
         if (event.name === "test_fn_failure") {
-            
             this.global.testStatus = "failure";
+
+            if (fs.existsSync(imageSnapshotsDiffOutputDir)) {
+                var files = fs.readdirSync(imageSnapshotsDiffOutputDir);
+                if (files.length ===1 ){
+                    const fileName = screenshotsDir+"/"+this.global.testName+".png"
+                    fs.renameSync(imageSnapshotsDiffOutputDir+"/"+files[0],fileName);
+                    fs.appendFileSync( screenshotsListFile, '"['+this.global.describeName+']+'+fileName+'{screenshot}"' + "\n");
+                    return; //FOUND IMAGE TO ANNOTATE
+                }
+            }
+
             if (this.global.page.url().includes("blank")!==true) {
                 const fileName = './screenshots/'+this.global.testName+'.jpeg';
                 await this.global.page.screenshot({ path: fileName});
-               // fs.writeFileSync(screenshotsListFileFd, '"['+this.global.describeName+']+'+fileName+'{screenshot}"' + "\n");
                 fs.appendFileSync( screenshotsListFile, '"['+this.global.describeName+']+'+fileName+'{screenshot}"' + "\n");
             }
 

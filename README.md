@@ -7,8 +7,13 @@ Publishing always include the context list, even when empty:
 testspace junit.xml @./screenshots-list.txt
 ```
 
-Hardcoded settings:
+## Notes
+Behavior:
+- Always creates `screenshots` and `screenshots-list.txt`
+- Can publish with an *empty* `screenshots-list.txt`
+- If a snapshot "diff" image is found, moves it and annotates the list
 
+Hardcoded settings:
 - the auto-generated `screenshots` folder that contains images
 - the auto-generated `screenshots-list.txt`file used for publishing images based on failures
 
