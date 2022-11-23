@@ -7,5 +7,6 @@ module.exports = {
     rootDir: ".",
     // Test timeout: 60000*10 = 10min
     testTimeout: 600000,
-    "testEnvironment": "./custom-environment.js"
+    "testEnvironment": "./jest-custom-environment.js",
+    "globalSetup": "./jest-custom-global-setup.js"
 };

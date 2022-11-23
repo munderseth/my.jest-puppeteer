@@ -11,4 +11,4 @@ it ("test two", () => {
 
 afterEach(() => {
     console.log({testStatus:testStatus, testName:testName, describeName:describeName});
-  })
+})
