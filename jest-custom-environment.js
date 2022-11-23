@@ -1,10 +1,10 @@
 // custom-environment.js
 const PuppeteerEnvironment = require('jest-environment-puppeteer');
 
+const fs = require('fs');
+const screenshotsListFile = './screenshots-list.txt';
+
 class CustomEnvironment extends PuppeteerEnvironment {
-    async setup() {
-        await super.setup();
-    }
 
     async handleTestEvent(event, state) {
 
@@ -21,7 +21,15 @@ class CustomEnvironment extends PuppeteerEnvironment {
         };
 
         if (event.name === "test_fn_failure") {
+            
             this.global.testStatus = "failure";
+            if (this.global.page.url().includes("blank")!==true) {
+                const fileName = './screenshots/'+this.global.testName+'.jpeg';
+                await this.global.page.screenshot({ path: fileName});
+               // fs.writeFileSync(screenshotsListFileFd, '"['+this.global.describeName+']+'+fileName+'{screenshot}"' + "\n");
+                fs.appendFileSync( screenshotsListFile, '"['+this.global.describeName+']+'+fileName+'{screenshot}"' + "\n");
+            }
+
         } else if (event.name === "test_fn_success") {
             this.global.testStatus = "success";
         };

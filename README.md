@@ -1,6 +1,18 @@
 # my.jest-puppeteer
 Sandbox for working with Jest and Puppeteer
 
+Publishing always include the context list, even when empty:
+
+```
+testspace junit.xml @./screenshots-list.txt
+```
+
+Hardcoded settings:
+
+- the auto-generated `screenshots` folder that contains images
+- the auto-generated `screenshots-list.txt`file used for publishing images based on failures
+
+
 ## Setup
 The following steps are required to setup from scratch.
 
