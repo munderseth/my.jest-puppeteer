@@ -2,17 +2,23 @@
   "name": "my.jest-puppeteer",
   "version": "1.0.0",
   "description": "Sandbox for working with Jest and Puppeteer",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/munderseth/my.jest-puppeteer.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "jest",
+    "jest-puppeteer",
+    "puppeteer",
+    "jest-image-snapshot",
+    "testspace",
+    "examples"
+  ],
+  "author": "Mark Underseth (https://github.com/munderseth)",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/munderseth/my.jest-puppeteer/issues"
   },

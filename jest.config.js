@@ -5,8 +5,6 @@ module.exports = {
     "reporters": [ "default", "jest-junit" ],
     // The root directory that Jest should scan for tests and modules within
     rootDir: ".",
-    // Test timeout: 60000*10 = 10min
-    testTimeout: 600000,
     "testEnvironment": "./jest-custom-environment.js",
-    "globalSetup": "./jest-custom-global-setup.js"
+    "globalSetup":     "./jest-custom-global-setup.js"
 };

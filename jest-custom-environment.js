@@ -2,9 +2,11 @@
 const PuppeteerEnvironment = require('jest-environment-puppeteer');
 
 const fs = require('fs');
+const testDir                      = './tests'
+
 const screenshotsDir               = 'screenshots';
 const screenshotsListFile          = './screenshots-list.txt';
-const imageSnapshotsDir            = '__image_snapshots__';
+const imageSnapshotsDir            = testDir+'/__image_snapshots__';
 const imageSnapshotsDiffOutputDir  = imageSnapshotsDir+'/__diff_output__';
 
 class CustomEnvironment extends PuppeteerEnvironment {
@@ -30,6 +32,7 @@ class CustomEnvironment extends PuppeteerEnvironment {
                 var files = fs.readdirSync(imageSnapshotsDiffOutputDir);
                 if (files.length ===1 ){
                     const fileName = screenshotsDir+"/"+this.global.testName+".png"
+                    // Moving diff image to screenshots folder
                     fs.renameSync(imageSnapshotsDiffOutputDir+"/"+files[0],fileName);
                     fs.appendFileSync( screenshotsListFile, '"['+this.global.describeName+']+'+fileName+'{screenshot}"' + "\n");
                     return; //FOUND IMAGE TO ANNOTATE

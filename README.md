@@ -1,31 +1,85 @@
 # my.jest-puppeteer
-Sandbox for working with Jest and Puppeteer
+A *Sandbox repo* to show how Jest, Puppeteer, and Testspace can work together. The repo demonstrates how to capture `screenshots` of failing tests and attach them to the associated `suite` when publishing test results to Testspace.
 
-Publishing always include the context list, even when empty:
+There are two use cases supported:
+  1. capture a screenshot of a test failure
+  2. and capture an image difference when a visual test fails using the [jest image snapshot](https://github.com/americanexpress/jest-image-snapshot) package
 
+To support attaching screenshots/images, a Testspace [content list file](https://help.testspace.com/publish/push-data-results#content-list) is used. When a test fails, an image is created (or used if auto-generated) and an entry is added to the content list file. The image name is based on the test case name.
+
+An example content list file entry (`screenshots-list.txt`):
+
+```
+"[Suite Name]+./screenshots/test case name.jpeg{screenshot}"
+```
+
+When publishing the following command line is used:
 ```
 testspace junit.xml @./screenshots-list.txt
 ```
 
-## Notes
-Behavior:
-- Always creates `screenshots` and `screenshots-list.txt`
-- Can publish with an *empty* `screenshots-list.txt`
-- If a snapshot "diff" image is found, moves it and annotates the list
+Note, publishing always include the context list, even when empty.
 
-Hardcoded settings:
+## Customization
+The following 3 packages are required:
+- [Jest Puppeteer](https://github.com/smooth-code/jest-puppeteer) - Tests using Jest & Puppeteer
+- [Jest Image Snapshot](https://github.com/americanexpress/jest-image-snapshot) - used for Visual Regression Testing
+- [Jest Junit](https://www.npmjs.com/package/jest-junit) - Use for Publishing results to Testspace
+
+To enable the attachment of images automatically on test failures, the [PuppeteerEnvironment](
+https://github.com/smooth-code/jest-puppeteer#extend-puppeteerenvironment) is required to be extended.
+- Determine the test case name. Refer to this [Issue](https://github.com/facebook/jest/issues/7774) for more details.
+- Create the screenshot associated with the test failure
+- Or find the screenshot different on failure
+
+Refer to `jest-custom-environment.js` for specifics. Refer to `jest-custom-global-setup.js` and the global setup requirements.
+
+
+### Constraints
+
+- Requires defining **testDir** within `jest-custom-environment.js` (defaults to `./tests`)
+- Subfolders are **not** supported
+- Nested `describes` **not** supported
+- Quotes (") with test names **not** supported
+
+
+The following hardcoded settings:
 - the auto-generated `screenshots` folder that contains images
 - the auto-generated `screenshots-list.txt`file used for publishing images based on failures
 
+## Usage
+To run this example:
+
+```
+jest
+```
+```
+sh pushTestspace.sh
+```
+
+To run with visable browser
+```
+ HEADLESS=false jest ...
+ ```
+
+### Image Snapshot
+
+Image Snapshot requires expanding "Expects" within the file:
+```
+const { toMatchImageSnapshot } = require('jest-image-snapshot');
+expect.extend({ toMatchImageSnapshot });
+```
 
 ## Setup
 The following steps are required to setup from scratch.
-
 
 `.gitignore`
 ```
 node_modules
 junit.xml
+screenshots-list.txt
+screenshots
+tests/__image_snapshots__/__diff_output__
 ```
 ### Packages
 
@@ -39,16 +93,17 @@ Using package - https://github.com/smooth-code/jest-puppeteer
 npm install --save-dev jest-puppeteer puppeteer jest
 ```
 
+Using Jest Image Snapshot - https://github.com/americanexpress/jest-image-snapshot
+```
+npm i --save-dev jest-image-snapshot
+```
+
 Junit output - https://www.npmjs.com/package/jest-junit
 ```
 npm install --save-dev jest-junit
 ```
 
-Using Jest Image Snapshot - https://github.com/americanexpress/jest-image-snapshot
-```
-npm i --save-dev jest-image-snapshot
-```
-### Configuration
+**Note** requires configuration
 Jest junit output - https://help.testspace.com/publish/tools-support-javascript#jest
 
 `.package.json`:
@@ -60,40 +115,3 @@ Jest junit output - https://help.testspace.com/publish/tools-support-javascript#
 },
 ```
 
-Jest configuration (`jest.config.js`):
-```
-module.exports = {
-    preset: "jest-puppeteer",
-    // Indicates whether the coverage information should be collected
-     collectCoverage: false,
-    "reporters": [ "default", "jest-junit" ],
-    // The root directory that Jest should scan for tests and modules within
-    rootDir: ".",
-    // Test timeout: 60000*10 = 10min
-    testTimeout: 600000,
-};
-```
-
-Jest Puppeteer configuration (`jest-puppeteer.config.js`):
-```
-module.exports = {
-    /*launch: {
-      headless: false,
-      slowMo: 30,
-    }*/
-}
-```
-
-### Custom Environment
-TBD
-
-
-## Usage
-
-### Images
-
-Image Snapshot requires expanding "Expects" within the file:
-```
-const { toMatchImageSnapshot } = require('jest-image-snapshot');
-expect.extend({ toMatchImageSnapshot });
-```
