@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Sandbox for working with Jest and Puppeteer",
   "scripts": {
-    "test": "jest"
+    "test": "jest --forceExit",
+    "lint": "eslint jest*.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
   },
   "homepage": "https://github.com/munderseth/my.jest-puppeteer#readme",
   "devDependencies": {
+    "eslint": "^8.28.0",
     "jest": "^29.3.1",
     "jest-image-snapshot": "^6.0.0",
     "jest-junit": "^15.0.0",

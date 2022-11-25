@@ -1,6 +1,7 @@
 # my.jest-puppeteer
 A *Sandbox repo* to show how Jest, Puppeteer, and Testspace can work together. The repo demonstrates how to capture `screenshots` of failing tests and attach them to the associated `suite` when publishing test results to Testspace.
 
+
 There are two use cases supported:
   1. capture a screenshot of a test failure
   2. and capture an image difference when a visual test fails using the [jest image snapshot](https://github.com/americanexpress/jest-image-snapshot) package
@@ -19,6 +20,20 @@ testspace junit.xml @./screenshots-list.txt
 ```
 
 Note, publishing always include the context list, even when empty.
+
+## Example
+The following is an example of the **test results** published to [Testspace](https://munderseth.testspace.com/spaces/195953/current):
+<br>
+
+![Results Publish](readme-results.png "Results Published")
+
+When selecting the `Google Test` suite refer to the **Annotations** listing `should be tilted Google.jpeg` :
+
+<br>
+
+![Example Capture Screenshot](readme-suite.png "Example Capture Screenshot")
+
+
 
 ## Customization
 The following 3 packages are required:

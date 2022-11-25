@@ -11,7 +11,8 @@ const imageSnapshotsDiffOutputDir  = imageSnapshotsDir+'/__diff_output__';
 
 class CustomEnvironment extends PuppeteerEnvironment {
 
-    async handleTestEvent(event, state) {
+    async handleTestEvent(event, state) {  // eslint-disable-line no-unused-vars
+
 
         if (event.name === "test_start") {
             let testNames = [];
@@ -23,7 +24,7 @@ class CustomEnvironment extends PuppeteerEnvironment {
 
             this.global.describeName = testNames[1];
             this.global.testName = testNames[0];
-        };
+        }
 
         if (event.name === "test_fn_failure") {
             this.global.testStatus = "failure";
@@ -47,7 +48,7 @@ class CustomEnvironment extends PuppeteerEnvironment {
 
         } else if (event.name === "test_fn_success") {
             this.global.testStatus = "success";
-        };
+        }
     }
 }
 
