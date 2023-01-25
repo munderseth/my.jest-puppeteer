@@ -35,6 +35,7 @@
   "jest-junit": {
     "suiteNameTemplate": "{filepath}",
     "classNameTemplate": "{classname}",
-    "titleTemplate": "{title}"
+    "titleTemplate": "{title}",
+    "includeShortConsoleOutput": "true"
   }
 }

@@ -1,54 +1,73 @@
 // custom-environment.js
 const PuppeteerEnvironment = require('jest-environment-puppeteer');
-
 const fs = require('fs');
+
+// Configure
 const testDir                      = './tests'
+const imageSnapshotsDir            = testDir+'/__image_snapshots__';
+const imageSnapshotsDiffOutputDir  = imageSnapshotsDir+'/__diff_output__';
 
 const screenshotsDir               = 'screenshots';
 const screenshotsListFile          = './screenshots-list.txt';
-const imageSnapshotsDir            = testDir+'/__image_snapshots__';
-const imageSnapshotsDiffOutputDir  = imageSnapshotsDir+'/__diff_output__';
 
 class CustomEnvironment extends PuppeteerEnvironment {
 
     async handleTestEvent(event, state) {  // eslint-disable-line no-unused-vars
 
-
-        if (event.name === "test_start") {
-            let testNames = [];
-            let currentTest = event.test;
-            while (currentTest) {
-              testNames.push(currentTest.name);
-              currentTest = currentTest.parent;
-            }
-
-            this.global.describeName = testNames[1];
-            this.global.testName = testNames[0];
-        }
-
-        if (event.name === "test_fn_failure") {
-            this.global.testStatus = "failure";
-
-            if (fs.existsSync(imageSnapshotsDiffOutputDir)) {
-                var files = fs.readdirSync(imageSnapshotsDiffOutputDir);
-                if (files.length ===1 ){
-                    const fileName = screenshotsDir+"/"+this.global.testName+".png"
-                    // Moving diff image to screenshots folder
-                    fs.renameSync(imageSnapshotsDiffOutputDir+"/"+files[0],fileName);
-                    fs.appendFileSync( screenshotsListFile, '"['+this.global.describeName+']+'+fileName+'{screenshot}"' + "\n");
-                    return; //FOUND IMAGE TO ANNOTATE
+        switch (event.name) {
+            /*
+               Determine the suite and case names
+            */
+            case "test_start":
+                this.global.testScreenshot=null;
+                var testNames = [];
+                var currentTest = event.test;
+                while (currentTest) {
+                    testNames.push(currentTest.name);
+                    currentTest = currentTest.parent;
                 }
-            }
+                this.global.describeName = testNames[1];
+                this.global.testName = testNames[0];
+                break;
 
-            if (this.global.page.url().includes("blank")!==true) {
-                const fileName = './screenshots/'+this.global.testName+'.jpeg';
+            case "test_fn_failure":
+                this.global.testStatus = "failed";
+
+                /*
+                   Check for NO image. If a page url does NOT exist (via pupeeteer) then nothing to capture
+                */
+                if (this.global.page.url().includes("blank")) return; // NO IMAGE TO CAPTURE
+
+                var dirName = screenshotsDir + "/" + this.global.describeName.replace(/[^\w]/g, '');
+                var fileName = dirName + "/" + this.global.testName.replace(/[^\w]/g, '_') + ".png";
+                fs.mkdirSync(dirName, {recursive: true});
+                this.global.testScreenshot = fileName;
+                
+                /*
+                   Check for auto-generated Diff Image. If exist will be moved for publishing.
+                */
+                if (fs.existsSync(imageSnapshotsDiffOutputDir)) {
+                    var files = fs.readdirSync(imageSnapshotsDiffOutputDir);
+                    if (files.length > 0 ){
+                        // Moving diff image to screenshots folder
+                        fs.renameSync(imageSnapshotsDiffOutputDir+"/"+files[0],fileName);
+                        fs.appendFileSync( screenshotsListFile, '"['+this.global.describeName+']+'+fileName+'{screenshot}"' + "\n");
+                        return; // IMAGE MOVED
+                    }
+                }
+
+                /*
+                   If page active, but no auto-generated "Diff" image, capture current screen
+                */
                 await this.global.page.screenshot({ path: fileName});
                 fs.appendFileSync( screenshotsListFile, '"['+this.global.describeName+']+'+fileName+'{screenshot}"' + "\n");
-            }
 
-        } else if (event.name === "test_fn_success") {
-            this.global.testStatus = "success";
-        }
+                break;
+
+            case "test_fn_success":
+                this.global.testStatus = "passed";
+                break;
+         }
     }
 }
 

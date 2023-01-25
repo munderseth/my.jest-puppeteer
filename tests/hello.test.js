@@ -1,14 +1,14 @@
 
 it ("test one", () => {
+    console.log("test:", expect.getState().currentTestName);
     expect(true).toBe(true);
-    console.log("TEST NAME: "+expect.getState().currentTestName);
 });
 
 it ("test two", () => {
-    console.log("TEST NAME: "+expect.getState().currentTestName);
     expect(1).toEqual(1);
 });
 
 afterEach(() => {
-    console.log({testStatus:testStatus, testName:testName, describeName:describeName});
+    console.log("case:", describeName+"=>"+testName, "status:", testStatus)
+    //console.log({testStatus:testStatus, testName:testName, describeName:describeName});
 })

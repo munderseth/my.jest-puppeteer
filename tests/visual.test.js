@@ -10,13 +10,13 @@ const sleep = (secs) => {
     });
 }
 
-describe('Generic Issues', () => {
+describe('Visual Test', () => {
 
     beforeAll(async () => {
         await page.setViewport({ width: 1440, height: 1080 });
     });
 
-    test('Add Issue Reference', async () => {
+    test('should match Testspace demo project', async () => {
         await page.goto("https://s2.testspace.com/projects/testspace-com:demo");
         if (process.env.HEADLESS !== 'false') {
             await sleep(delay);
@@ -32,7 +32,7 @@ describe('Generic Issues', () => {
         expect(screenshot).toMatchImageSnapshot();
     });
 
-    test('Add Multiple Issue References', async () => {
+    test('should match Testspace demo project Specs Listing', async () => {
         await page.goto("https://s2.testspace.com/projects/testspace-com:demo/spaces/main/specs");
         if (process.env.HEADLESS !== 'false') {
             await sleep(delay);
