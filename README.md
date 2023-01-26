@@ -55,7 +55,7 @@ https://github.com/smooth-code/jest-puppeteer#extend-puppeteerenvironment) is re
 
 Refer to `jest-custom-environment.js` for specifics. Refer to `jest-custom-global-setup.js` and the global setup requirements.
 
-Note. To force the *Visual Test* suite to fail, go to [testspace-com:demo](https://s2.testspace.com/spaces/145811/specs) and create a new session.
+Note. To force the *Visual Test* suite to fail, go to [testspace-com:demo](https://s2.testspace.com/spaces/145811/specs) and create a new session. Also note that the "expect" images have been generated for Linux OS. 
 
 ### Constraints
 
