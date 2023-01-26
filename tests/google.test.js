@@ -12,16 +12,6 @@ describe('Google Test', () => {
         await page.goto('https://google.com');
     });
 
-    /*
-     * Not using console annotation approach
-     */
-    afterEach(async () => {
-      if (testScreenshot) {
-        //console.log("[[ATTACHMENT|./"+testScreenshot+"|screenshot]]");
-        console.log("((ATTACHMENT|./"+testScreenshot+"|screenshot))")
-      }
-    });
-
     it('should be titled "Google"', async () => {
       await expect(page.title()).resolves.toMatch('xGoogle');
     });

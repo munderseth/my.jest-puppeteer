@@ -19,7 +19,6 @@ class CustomEnvironment extends PuppeteerEnvironment {
                Determine the suite and case names
             */
             case "test_start":
-                this.global.testScreenshot=null;
                 this.global.describeName = state.currentlyRunningTest.parent.name;
                 this.global.testName = state.currentlyRunningTest.name;
                 break;
@@ -35,7 +34,6 @@ class CustomEnvironment extends PuppeteerEnvironment {
                 var dirName = screenshotsDir + "/" + state.currentlyRunningTest.parent.name.replace(/[^\w]/g, '');
                 var fileName = dirName + "/" + state.currentlyRunningTest.name.replace(/[^\w]/g, '_') + ".png";
                 fs.mkdirSync(dirName, {recursive: true});
-                this.global.testScreenshot = fileName;
 
                 /*
                    Check for auto-generated Diff Image. If exist will be moved for publishing.
