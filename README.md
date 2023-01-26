@@ -49,13 +49,13 @@ The following 3 packages are required:
 
 To enable the attachment of images automatically on test failures, the [PuppeteerEnvironment](
 https://github.com/smooth-code/jest-puppeteer#extend-puppeteerenvironment) is required to be extended.
-- Determine the test case name. Refer to this [Issue](https://github.com/facebook/jest/issues/7774) for more details.
+- Determine the test case name. Refer to this [Jest Issue 7774](https://github.com/facebook/jest/issues/7774) and [Jest-puppeteer Issue 131](https://github.com/smooth-code/jest-puppeteer/issues/131) for more details.
 - Create the screenshot associated with the test failure
 - Or find the screenshot different on failure
 
 Refer to `jest-custom-environment.js` for specifics. Refer to `jest-custom-global-setup.js` and the global setup requirements.
 
-Note. To force the *Visual Test* suite to fail, go to [testspace-com:demo](https://s2.testspace.com/spaces/145811/specs) and create a new session. Also note that the "expect" images have been generated for Linux OS. 
+Note. To force the *Visual Test* suite to fail, go to [testspace-com:demo](https://s2.testspace.com/spaces/145811/specs) and create a new session. Also note that the "expect" images have been generated for Linux OS.
 
 ### Constraints
 
