@@ -10,5 +10,8 @@ module.exports = {
     // Test timeout: 60000*1 = 1min
     testTimeout: 60000,
     "testEnvironment": "./jest-custom-environment.js",
-    "globalSetup":     "./jest-custom-global-setup.js"
+    "globalSetup":     "./jest-custom-global-setup.js",
+    "globals": {
+        "testScreenshot": null
+    }
 };
