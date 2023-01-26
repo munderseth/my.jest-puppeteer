@@ -45,7 +45,7 @@ class CustomEnvironment extends PuppeteerEnvironment {
                     if (files.length > 0 ){
                         // Moving diff image to screenshots folder
                         fs.renameSync(imageSnapshotsDiffOutputDir+"/"+files[0],fileName);
-                        fs.appendFileSync( screenshotsListFile, '"['+this.global.describeName+']+'+fileName+'{screenshot diff}"' + "\n");
+                        fs.appendFileSync( screenshotsListFile, '"['+state.currentlyRunningTest.parent.name+']+'+fileName+'{screenshot diff}"' + "\n");
                         return; // IMAGE MOVED
                     }
                 }
@@ -54,7 +54,7 @@ class CustomEnvironment extends PuppeteerEnvironment {
                    If page active, but no auto-generated "Diff" image, capture current screen
                 */
                 await this.global.page.screenshot({ path: fileName});
-                fs.appendFileSync( screenshotsListFile, '"['+this.global.describeName+']+'+fileName+'{screenshot}"' + "\n");
+                fs.appendFileSync( screenshotsListFile, '"['+state.currentlyRunningTest.parent.name+']+'+fileName+'{screenshot}"' + "\n");
 
                 break;
 
