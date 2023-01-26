@@ -19,6 +19,12 @@ When publishing the following command line is used:
 testspace junit.xml @./screenshots-list.txt
 ```
 
+When publishing contest to a folder the following syntax is required:
+```
+testspace junit.xml @./screenshots-list.txt '#/FOLDER`
+```
+
+
 Note, publishing always include the context list, even when empty.
 
 ## Example
@@ -27,7 +33,7 @@ The following is an example of the **test results** published to [Testspace](htt
 
 ![Results Publish](readme-results.png "Results Published")
 
-When selecting the `Google Test` suite refer to the **Annotations** listing `should be tilted Google.jpeg` :
+When selecting the `Google Test` suite refer to the **Annotations** listing `should_be_tilted__ Google_.png` :
 
 <br>
 
@@ -49,14 +55,12 @@ https://github.com/smooth-code/jest-puppeteer#extend-puppeteerenvironment) is re
 
 Refer to `jest-custom-environment.js` for specifics. Refer to `jest-custom-global-setup.js` and the global setup requirements.
 
+Note. To force the *Visual Test* suite to fail, go to [testspace-com:demo](https://s2.testspace.com/spaces/145811/specs) and create a new session.
 
 ### Constraints
 
 - Requires defining **testDir** within `jest-custom-environment.js` (defaults to `./tests`)
-- Subfolders are **not** supported
 - Nested `describes` **not** supported
-- Quotes (") with test names **not** supported
-
 
 The following hardcoded settings:
 - the auto-generated `screenshots` folder that contains images
@@ -126,7 +130,8 @@ Jest junit output - https://help.testspace.com/publish/tools-support-javascript#
 "jest-junit": {
     "suiteNameTemplate": "{filepath}",
     "classNameTemplate": "{classname}",
-    "titleTemplate": "{title}"
+    "titleTemplate": "{title}",
+    "includeShortConsoleOutput": "true"
 },
 ```
 
