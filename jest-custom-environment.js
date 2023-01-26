@@ -20,29 +20,23 @@ class CustomEnvironment extends PuppeteerEnvironment {
             */
             case "test_start":
                 this.global.testScreenshot=null;
-                var testNames = [];
-                var currentTest = event.test;
-                while (currentTest) {
-                    testNames.push(currentTest.name);
-                    currentTest = currentTest.parent;
-                }
-                this.global.describeName = testNames[1];
-                this.global.testName = testNames[0];
+                this.global.describeName = state.currentlyRunningTest.parent.name;
+                this.global.testName = state.currentlyRunningTest.name;
                 break;
 
             case "test_fn_failure":
                 this.global.testStatus = "failed";
 
                 /*
-                   Check for NO image. If a page url does NOT exist (via pupeeteer) then nothing to capture
+                   Check for browser launch with no goto URL yet. Empty page screenshoot not useful, no capture.
                 */
-                if (this.global.page.url().includes("blank")) return; // NO IMAGE TO CAPTURE
+                if (this.global.page.url().includes("about:blank")) return; // NO IMAGE TO CAPTURE
 
-                var dirName = screenshotsDir + "/" + this.global.describeName.replace(/[^\w]/g, '');
-                var fileName = dirName + "/" + this.global.testName.replace(/[^\w]/g, '_') + ".png";
+                var dirName = screenshotsDir + "/" + state.currentlyRunningTest.parent.name.replace(/[^\w]/g, '');
+                var fileName = dirName + "/" + state.currentlyRunningTest.name.replace(/[^\w]/g, '_') + ".png";
                 fs.mkdirSync(dirName, {recursive: true});
                 this.global.testScreenshot = fileName;
-                
+
                 /*
                    Check for auto-generated Diff Image. If exist will be moved for publishing.
                 */
@@ -51,7 +45,7 @@ class CustomEnvironment extends PuppeteerEnvironment {
                     if (files.length > 0 ){
                         // Moving diff image to screenshots folder
                         fs.renameSync(imageSnapshotsDiffOutputDir+"/"+files[0],fileName);
-                        fs.appendFileSync( screenshotsListFile, '"['+this.global.describeName+']+'+fileName+'{screenshot}"' + "\n");
+                        fs.appendFileSync( screenshotsListFile, '"['+this.global.describeName+']+'+fileName+'{screenshot diff}"' + "\n");
                         return; // IMAGE MOVED
                     }
                 }
