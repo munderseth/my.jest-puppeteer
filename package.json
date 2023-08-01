@@ -30,12 +30,10 @@
     "jest-image-snapshot": "6.x",
     "jest-junit": "16.x",
     "jest-puppeteer": "^6.1.1",
-    "puppeteer": "^19.2.2"
+    "puppeteer": "20.x"
   },
   "jest-junit": {
-    "suiteNameTemplate": "{filepath}",
-    "classNameTemplate": "{classname}",
-    "titleTemplate": "{title}",
+    "addFileAttribute": "true",
     "includeShortConsoleOutput": "true"
   }
 }
