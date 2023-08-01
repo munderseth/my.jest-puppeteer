@@ -40,10 +40,10 @@ When selecting the `Google Test` suite refer to the **Annotations** listing `sho
 ![Example Capture Screenshot](readme-suite.png "Example Capture Screenshot")
 
 
-
 ## Customization
 The following 3 packages are required:
-- [Jest Puppeteer](https://github.com/smooth-code/jest-puppeteer) - Tests using Jest & Puppeteer
+- [Jest Puppeteer](https://github.com/argos-ci/jest-puppeteer) - Tests using Jest & Puppeteer
+   - [Jest Environment Puppeteer](https://github.com/argos-ci/jest-puppeteer/tree/main/packages/jest-environment-puppeteer#create-custom-environment)
 - [Jest Image Snapshot](https://github.com/americanexpress/jest-image-snapshot) - used for Visual Regression Testing
 - [Jest Junit](https://www.npmjs.com/package/jest-junit) - Use for Publishing results to Testspace
 
