@@ -1,16 +1,16 @@
 // custom-environment.js
-const PuppeteerEnvironment = require('jest-environment-puppeteer');
 const fs = require('fs');
+const JestPuppeteerEnvironment =
+  require("jest-environment-puppeteer").TestEnvironment;
 
 // Configure
-const testDir                      = './tests'
-const imageSnapshotsDir            = testDir+'/__image_snapshots__';
+const testDir = './tests'
+const imageSnapshotsDir = testDir+'/__image_snapshots__';
 const imageSnapshotsDiffOutputDir  = imageSnapshotsDir+'/__diff_output__';
-
 const screenshotsDir               = 'screenshots';
 const screenshotsListFile          = './screenshots-list.txt';
 
-class CustomEnvironment extends PuppeteerEnvironment {
+class CustomEnvironment extends JestPuppeteerEnvironment {
 
     async handleTestEvent(event, state) {  // eslint-disable-line no-unused-vars
 
