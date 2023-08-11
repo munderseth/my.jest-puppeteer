@@ -8,12 +8,13 @@ afterEach(() => {
     //console.log({testStatus:testStatus, testName:testName, describeName:describeName});
 });
 
-it ("test one", () => {
-   // console.log("test:", expect.getState().currentTestName);
-    expect(true).toBe(true);
-});
-
-it ("test two", () => {
-    expect(1).toEqual(1);
+describe('Hello Test', () => {
+    it ("test one", () => {
+    // console.log("test:", expect.getState().currentTestName);
+        expect(true).toBe(true);
+    });
+    it ("test two", () => {
+        expect(1).toEqual(1);
+    });
 });
 
