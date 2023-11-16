@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Sandbox for working with Jest and Puppeteer",
   "scripts": {
-    "test": "jest --forceExit",
+    "test": "jest",
     "lint": "eslint jest*.js"
   },
   "repository": {
