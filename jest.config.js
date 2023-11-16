@@ -5,6 +5,7 @@ module.exports = {
     // Indicates whether the coverage information should be collected
      collectCoverage: false,
     "reporters": [ "default", "jest-junit" ],
+    "testResultsProcessor": "jest-json-reporter", // Don't add to reportes (not sure why?)
     // The root directory that Jest should scan for tests and modules within
     rootDir: ".",
     // Test timeout: 60000*1 = 1min

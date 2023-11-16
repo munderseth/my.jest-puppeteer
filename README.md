@@ -96,6 +96,7 @@ The following steps are required to setup from scratch.
 ```
 node_modules
 junit.xml
+test-results.json
 screenshots-list.txt
 screenshots
 tests/__image_snapshots__/__diff_output__
@@ -120,6 +121,11 @@ npm i --save-dev jest-image-snapshot
 Junit output - https://www.npmjs.com/package/jest-junit
 ```
 npm install --save-dev jest-junit
+```
+
+Json output - https://www.npmjs.com/package/jest-json-reporter
+```
+npm install --save-dev jest-json-reporter
 ```
 
 **Note** requires configuration

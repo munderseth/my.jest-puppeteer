@@ -15,5 +15,5 @@ jobs:
       - run: npm test
       - name: Push test result to Testspace
         run: |
-          testspace junit.xml @./screenshots-list.txt
+          testspace junit.xml @./screenshots-list.txt "+test-results.json{json reporter output}"
         if: always()

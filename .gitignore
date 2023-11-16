@@ -1,5 +1,6 @@
 node_modules
 junit.xml
+test-results.json
 screenshots-list.txt
 screenshots
 tests/__image_snapshots__/__diff_output__

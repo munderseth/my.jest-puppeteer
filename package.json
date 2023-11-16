@@ -26,9 +26,10 @@
   "homepage": "https://github.com/munderseth/my.jest-puppeteer#readme",
   "devDependencies": {
     "eslint": "^8.28.0",
-    "jest-image-snapshot": "6.x",
-    "jest-junit": "16.x",
     "jest": "^29.6.2",
+    "jest-image-snapshot": "6.x",
+    "jest-json-reporter": "^1.2.2",
+    "jest-junit": "16.x",
     "jest-puppeteer": "^9.0.0",
     "puppeteer": "^21.0.2"
   },
